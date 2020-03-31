@@ -1,4 +1,4 @@
-@import "~antd/es/style/themes/default.less";
+@import '~antd/es/style/themes/default.less';
 
 @pro-header-hover-bg: rgba(0, 0, 0, 0.025);
 
@@ -12,17 +12,19 @@
 }
 
 .right {
+  display: flex;
   float: right;
-  height: 100%;
+  height: @layout-header-height;
   margin-left: auto;
   overflow: hidden;
   .action {
-    display: inline-block;
+    display: flex;
+    align-items: center;
     height: 100%;
     padding: 0 12px;
     cursor: pointer;
     transition: all 0.3s;
-    > i {
+    > span {
       color: @text-color;
       vertical-align: middle;
     }
@@ -41,7 +43,7 @@
   }
   .account {
     .avatar {
-      margin: ~"calc((@{layout-header-height} - 24px) / 2)" 0;
+      margin: ~'calc((@{layout-header-height} - 24px) / 2)' 0;
       margin-right: 8px;
       color: @primary-color;
       vertical-align: top;
@@ -51,10 +53,9 @@
 }
 
 .dark {
-  height: @layout-header-height;
   .action {
     color: rgba(255, 255, 255, 0.85);
-    > i {
+    > span {
       color: rgba(255, 255, 255, 0.85);
     }
     &:hover,
@@ -68,12 +69,12 @@
   .dark {
     .action {
       color: @text-color;
-      > i {
+      > span {
         color: @text-color;
       }
       &:hover {
         color: rgba(255, 255, 255, 0.85);
-        > i {
+        > span {
           color: rgba(255, 255, 255, 0.85);
         }
       }
@@ -96,6 +97,9 @@
       .avatar {
         margin-right: 0;
       }
+    }
+    .search {
+      display: none;
     }
   }
 }

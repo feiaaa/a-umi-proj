@@ -1,7 +1,7 @@
-import { Avatar, List } from "antd";
-import React from "react";
-import classNames from "classnames";
-import styles from "./NoticeList.less";
+import { Avatar, List } from 'antd';
+import React from 'react';
+import classNames from 'classnames';
+import styles from './NoticeList.less';
 
 const NoticeList = ({
   data = [],
@@ -13,9 +13,9 @@ const NoticeList = ({
   showClear = true,
   clearText,
   viewMoreText,
-  showViewMore = false
+  showViewMore = false,
 }) => {
-  if (data.length === 0) {
+  if (!data || data.length === 0) {
     return (
       <div className={styles.notFound}>
         <img
@@ -34,11 +34,11 @@ const NoticeList = ({
         dataSource={data}
         renderItem={(item, i) => {
           const itemCls = classNames(styles.item, {
-            [styles.read]: item.read
+            [styles.read]: item.read,
           }); // eslint-disable-next-line no-nested-ternary
 
           const leftIcon = item.avatar ? (
-            typeof item.avatar === "string" ? (
+            typeof item.avatar === 'string' ? (
               <Avatar className={styles.avatar} src={item.avatar} />
             ) : (
               <span className={styles.iconElement}>{item.avatar}</span>

@@ -1,5 +1,5 @@
-import React from "react";
-import CheckPermissions from "./CheckPermissions";
+import React from 'react';
+import CheckPermissions from './CheckPermissions';
 /**
  * 默认不能访问任何页面
  * default is "NULL"
@@ -58,15 +58,11 @@ const authorize = (authority, error) => {
   }
 
   if (!authority) {
-    throw new Error("authority is required");
+    throw new Error('authority is required');
   }
 
   return function decideAuthority(target) {
-    const component = CheckPermissions(
-      authority,
-      target,
-      classError || Exception403
-    );
+    const component = CheckPermissions(authority, target, classError || Exception403);
     return checkIsInstantiation(component);
   };
 };

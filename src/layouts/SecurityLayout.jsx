@@ -1,23 +1,22 @@
-import React from "react";
-import { connect } from "dva";
-import { Redirect } from "umi";
-import { stringify } from "querystring";
-import PageLoading from "@/components/PageLoading";
+import React from 'react';
+import { PageLoading } from '@ant-design/pro-layout';
+import { Redirect, connect } from 'umi';
+import { stringify } from 'querystring';
 
 class SecurityLayout extends React.Component {
   state = {
-    isReady: false
+    isReady: false,
   };
 
   componentDidMount() {
     this.setState({
-      isReady: true
+      isReady: true,
     });
     const { dispatch } = this.props;
 
     if (dispatch) {
       dispatch({
-        type: "user/fetchCurrent"
+        type: 'user/fetchCurrent',
       });
     }
   }
@@ -29,15 +28,15 @@ class SecurityLayout extends React.Component {
 
     const isLogin = currentUser && currentUser.userid;
     const queryString = stringify({
-      redirect: window.location.href
+      redirect: window.location.href,
     });
 
     if ((!isLogin && loading) || !isReady) {
       return <PageLoading />;
     }
 
-    if (!isLogin) {
-      return <Redirect to={`/user/login?${queryString}`}></Redirect>;
+    if (!isLogin && window.location.pathname !== '/user/login') {
+      return <Redirect to={`/user/login?${queryString}`} />;
     }
 
     return children;
@@ -46,5 +45,5 @@ class SecurityLayout extends React.Component {
 
 export default connect(({ user, loading }) => ({
   currentUser: user.currentUser,
-  loading: loading.models.user
+  loading: loading.models.user,
 }))(SecurityLayout);

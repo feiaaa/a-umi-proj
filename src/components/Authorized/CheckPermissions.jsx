@@ -1,7 +1,7 @@
-import React from "react";
-import { CURRENT } from "./renderAuthorize"; // eslint-disable-next-line import/no-cycle
+import React from 'react';
+import { CURRENT } from './renderAuthorize'; // eslint-disable-next-line import/no-cycle
 
-import PromiseRender from "./PromiseRender";
+import PromiseRender from './PromiseRender';
 
 /**
  * 通用权限检查方法
@@ -30,7 +30,7 @@ const checkPermissions = (authority, currentAuthority, target, Exception) => {
     return Exception;
   } // string 处理
 
-  if (typeof authority === "string") {
+  if (typeof authority === 'string') {
     if (Array.isArray(currentAuthority)) {
       if (currentAuthority.some(item => authority === item)) {
         return target;
@@ -46,7 +46,7 @@ const checkPermissions = (authority, currentAuthority, target, Exception) => {
     return <PromiseRender ok={target} error={Exception} promise={authority} />;
   } // Function 处理
 
-  if (typeof authority === "function") {
+  if (typeof authority === 'function') {
     try {
       const bool = authority(currentAuthority); // 函数执行后返回值是 Promise
 
@@ -64,7 +64,7 @@ const checkPermissions = (authority, currentAuthority, target, Exception) => {
     }
   }
 
-  throw new Error("unsupported parameters");
+  throw new Error('unsupported parameters');
 };
 
 export { checkPermissions };

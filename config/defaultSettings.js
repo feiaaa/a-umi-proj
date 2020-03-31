@@ -1,16 +1,17 @@
 export default {
-  navTheme: "dark",
-  primaryColor: "#1890FF",
-  layout: "sidemenu",
-  contentWidth: "Fluid",
+  navTheme: 'dark',
+  // 拂晓蓝
+  primaryColor: '#1890ff',
+  layout: 'sidemenu',
+  contentWidth: 'Fluid',
   fixedHeader: false,
   autoHideHeader: false,
   fixSiderbar: false,
   colorWeak: false,
   menu: {
-    locale: true
+    locale: true,
   },
-  title: "Ant Design Pro",
+  title: 'Ant Design Pro',
   pwa: false,
-  iconfontUrl: ""
+  iconfontUrl: '',
 };
