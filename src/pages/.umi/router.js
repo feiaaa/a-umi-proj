@@ -1,11 +1,17 @@
 import React from "react";
-import { Router as DefaultRouter, Route, Switch } from "react-router-dom";
+import {
+  Router as DefaultRouter,
+  Route,
+  Switch,
+  StaticRouter
+} from "react-router-dom";
 import dynamic from "umi/dynamic";
 import renderRoutes from "umi/lib/renderRoutes";
-import history from "@tmp/history";
+import history from "@@/history";
 import RendererWrapper0 from "/Users/fanruoyun/Desktop/文档/Valentine/a-umi-proj/src/pages/.umi/LocaleWrapper.jsx";
+import { routerRedux } from "dva";
 
-const Router = require("dva/router").routerRedux.ConnectedRouter;
+const Router = routerRedux.ConnectedRouter;
 
 const routes = [
   {
