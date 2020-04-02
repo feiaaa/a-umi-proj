@@ -86,6 +86,12 @@ export default defineConfig({
               component: './ListTableList',
             },
             {
+              name: 'echart.chart',
+              icon: 'barChart',
+              path: '/echart',
+              component: './Chart',
+            },
+            {
               component: './404',
             },
           ],
