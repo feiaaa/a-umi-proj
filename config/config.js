@@ -92,6 +92,12 @@ export default defineConfig({
               component: './Chart',
             },
             {
+              name: '上传',
+              icon: 'upload',
+              path: '/upload',
+              component: './Upload',
+            },
+            {
               component: './404',
             },
           ],
