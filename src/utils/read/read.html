@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title></title>
     <script src="./lib/zip.js"></script>
-    <script src="./mime-types.js"></script>
+    <script src="./lib/mime-types.js"></script>
     <script src="http://apps.bdimg.com/libs/jquery/1.9.0/jquery.js"></script>
     <script src="./lib/UnZipArchive.js"></script>
 </head>
@@ -21,6 +21,7 @@
 <script>
     $("#file").change(function (e) {
         var file = this.files[0];
+		console.log(file,'-file')
         window.un = new UnZipArchive( file );
         un.getData( function() {
             //获取所以的文件和文件夹列表;

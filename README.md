@@ -56,9 +56,13 @@ npm test
 
 You can view full document on our [official website](https://pro.ant.design). And welcome any feedback in our [github](https://github.com/ant-design/ant-design-pro).
 
-
+## Menu 目录说明
+- echart图表 :引入echart组件，图表展示。antpro本体用的G2chart
+- 上传:使用了jszip，可在上传zip后解析文件目录;jq版本见 utils/read文件夹
 ## Link
 [一文看懂 react hooks](https://blog.csdn.net/landl_ww/article/details/102158814)
+[获取zip包目录结构-jq版本](http://gildas-lormeau.github.io/zip.js/demos/demo2.html)
+[获取zip包目录结构-npm-jszip](https://stuk.github.io/jszip/documentation/examples/read-local-file-api.html)
 
 ## Notice
 remove this for commit

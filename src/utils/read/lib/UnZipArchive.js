@@ -1,10 +1,9 @@
-import $ from 'jquery'
-import _ from 'lodash'
-zip.workerScriptsPath = "./";
+
+zip.workerScriptsPath = "./lib/";
 /**
  * @desc 解压缩文件;
  * */
-const  UnZipArchive = function( blob ) {
+var UnZipArchive = function( blob ) {
     if( !blob ) {
         alert("参数不正确, 需要一个Blob类型的参数");
         return
@@ -42,7 +41,8 @@ UnZipArchive.readBlobAsDataURL = function (blob, callback) {
     f.onload = function(e) {callback( e.target.result );};
     f.readAsDataURL(blob);
 };
-const extend={
+
+$.extend( UnZipArchive.prototype, {
     /**
      * @desc 获取压缩文件的所有入口;
      * @return ArrayList;
@@ -125,11 +125,4 @@ const extend={
         this.onerror( this );
         throw new Error("压缩文件解压失败");
     }
-}
-// $.extend( UnZipArchive.prototype, extend);
- 
-const newUnZipArchive= (blob)=>{
-    const result=_.assignIn(new UnZipArchive(blob),UnZipArchive.prototype, extend);
-    return result
-}
-export default newUnZipArchive
+});
