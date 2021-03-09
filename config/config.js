@@ -80,23 +80,54 @@ export default defineConfig({
               ],
             },
             {
-              name: 'list.table-list',
-              icon: 'table',
-              path: '/list',
-              component: './ListTableList',
+              path: '/self',
+              name: 'self',
+              icon: 'info-circle',
+              // hideInMenu: true,
+              routes: [
+                
+                  {
+                    name: 'list.table-list',
+                    icon: 'table',
+                    path: '/self/list',
+                    component: './ListTableList',
+                  },
+                  {
+                    name: 'echart.chart',
+                    icon: 'barChart',
+                    path: '/self/echart',
+                    component: './Chart',
+                  },
+                  {
+                    name: '上传',
+                    icon: 'upload',
+                    path: '/self/upload',
+                    component: './Upload',
+                  },
+                  {
+                    name: 'useContext/useReducer',
+                    icon: 'list',
+                    path: '/self/hookUseContext',
+                    component: './hook',
+                  },
+                ]
             },
             {
-              name: 'echart.chart',
-              icon: 'barChart',
-              path: '/echart',
-              component: './Chart',
+              path: '/word',
+              name: '认字',
+              icon: 'font-colors',
+              // hideInMenu: true,
+              routes: [
+                
+                  {
+                    name: '上传pptx',
+                    icon: 'upload',
+                    path: '/word/upload',
+                    component: './Upload/pptx',
+                  },
+                ]
             },
-            {
-              name: '上传',
-              icon: 'upload',
-              path: '/upload',
-              component: './Upload',
-            },
+            
             {
               component: './404',
             },

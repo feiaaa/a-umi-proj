@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import {Upload,Button,message} from 'antd';
 import _ from 'lodash';
-var JSZip = require("jszip");
+import pptParse from 'pptx-parser'
 
 
 
@@ -39,30 +39,19 @@ const UploadShow = () => {
   const beforeOCR=async(file,fileList)=>{
     // todo:// file.type只能检测出通用的类型，比如txt,JPEG,png 之类
     const fileType = [
-      'application/octet-stream',
-      'application/x-zip-compressed',
-      'application/zip'
+      'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      'application/vnd.ms-powerpoint'
     ];
-    const index = file.name.lastIndexOf("\.");
-    const name  = file.name.substring(0, index);
-    let regExp = /[a-zA-Z0-9_]{4,15}$/g
-    let match = regExp.exec(name)
-
-    const isFormat = fileType.indexOf(file.type) >= 0;
+    
+    const isFormat = file.name.indexOf('pptx')>=0;//fileType.indexOf(file.type) >= 0;
     const isLt200M = file.size / 1024 / 1024 < 200;
-    // // 此处校验文件层次 start
-    const isFolder=await checkFolder(file);
-    console.log(isFolder,'=folder')
-    // 此处校验文件层次 end
+
+    console.log(isFormat,isLt200M,'=49')
+  
     return new Promise((resolve,reject) => {      
-      // 校验名字
-      if(match === null) {
-        message.error('文件名称仅支持字母数字下划线下划线,5-16字节');
-        reject()
-      }
       
       // 格式和体积正确走校验表头api
-      if (isFormat && isLt200M && isFolder) {
+      if (isFormat && isLt200M ) {
         message.success('全部通过')
         resolve(file,fileList)
       }
@@ -75,10 +64,30 @@ const UploadShow = () => {
 
   const customRequest =async (detail) => {
     console.log(detail,'-detail in custom')
+  
+    const file=detail.file;
+    const pptJson = await pptParse(file)
+    // todo 此段要精简
+    const pptObj=(pptJson.slides||[]).map((slide,index)=>{
+      const slideRes=slide.pageElements.filter(page=>(page.shape && page.shape.text&& page.shape.text.paragraphs)).find(page=>{
+        const pageRes=page.shape.text.paragraphs.filter(para=>{
+          const res=(para.textSpans||[]).find(el=>el.hasOwnProperty('textRun') )
+          return res && res.textRun &&res.textRun.content;          
+        })
+        return Array.isArray(pageRes) && pageRes.length>0
+      })
+      return slideRes.shape.text.paragraphs.map(para=>{
+        const res=(para.textSpans||[]).find(el=>el.hasOwnProperty('textRun') )
+        return {index,word:res && res.textRun &&res.textRun.content};        
+      })
+
+    })
+    console.log(pptObj,'===89',_.flatMap(pptObj))
   }
   return (
     <div>
-      <h3>使用了npm-JSZip 工具，校验格式</h3>
+      <h3>使用了pptx-parser 工具，把pptx转化问json</h3>
+      <p>不是ppt</p>
       <Upload data={()=>({batchId:'123456',params:'step1OCR'})}
                   action={'/api/fakeUploadUrl/'} beforeUpload={beforeOCR}
                   customRequest={customRequest}
@@ -87,7 +96,7 @@ const UploadShow = () => {
                   fileList={uploadData}
                   // progress={progress}
                   multiple={true}
-          ><Button key="upload_excel" type="primary">导入影像件</Button></Upload>
+          ><Button key="upload_excel" type="primary">导入pptx</Button></Upload>
           {zipList.join('\n')}
     </div>
   )

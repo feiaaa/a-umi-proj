@@ -54,13 +54,14 @@
     "moment": "^2.24.0",
     "omit.js": "^1.0.2",
     "path-to-regexp": "2.4.0",
+    "pptx-parser": "^1.1.6",
     "qs": "^6.9.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet-async": "^1.0.4",
     "umi": "^3.0.14",
-    "umi-request": "^1.0.8",    
-    "use-merge-value": "^1.0.1"    
+    "umi-request": "^1.0.8",
+    "use-merge-value": "^1.0.1"
   },
   "devDependencies": {
     "@ant-design/pro-cli": "^1.0.18",

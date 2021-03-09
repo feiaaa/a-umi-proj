@@ -64,6 +64,8 @@ You can view full document on our [official website](https://pro.ant.design). An
 [获取zip包目录结构-jq版本](http://gildas-lormeau.github.io/zip.js/demos/demo2.html)
 [获取zip包目录结构-npm-jszip](https://stuk.github.io/jszip/documentation/examples/read-local-file-api.html)
 
+[pptx转json:pptx-parser](https://www.npmjs.com/package/pptx-parser)
+
 ## Notice
 remove this for commit
 ```package.json
