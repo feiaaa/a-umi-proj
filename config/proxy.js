@@ -14,6 +14,13 @@ export default {
         '^': '',
       },
     },
+    '/yby': {
+      target: 'https://niwa.club/',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/yby': '/yby',
+      },
+    },
   },
   test: {
     '/api/': {

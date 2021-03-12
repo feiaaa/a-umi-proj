@@ -65,7 +65,7 @@ You can view full document on our [official website](https://pro.ant.design). An
 [获取zip包目录结构-npm-jszip](https://stuk.github.io/jszip/documentation/examples/read-local-file-api.html)
 
 [pptx转json:pptx-parser](https://www.npmjs.com/package/pptx-parser)
-
+[拼音的排序,检索,注音](https://github.com/hotoo/pinyin)
 ## Notice
 remove this for commit
 ```package.json
