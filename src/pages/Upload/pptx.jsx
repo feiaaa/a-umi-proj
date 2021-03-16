@@ -4,8 +4,8 @@ import React, { useState, useMemo,useEffect } from 'react';
 import {Upload,Button,message,Tabs,Table,Modal,Form,Input,InputNumber,Card,Col,Row} from 'antd';
 import { connect, Dispatch } from 'umi';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-
-import {columns, editSingle, queryList} from '@/services/yby'
+import styles from './style.less'
+import {columns} from '@/services/yby'
 import _, { values } from 'lodash';
 import pptParse from 'pptx-parser'
 var pinyin = require("pinyin");
@@ -24,11 +24,13 @@ const Pptx = ({dispatch,word,listing}) => {
   const [tab,setTab]=useState('1');//标签页key
 
   const [form] = Form.useForm();
-  const queryList=(params={page:0,course:-1})=>{
+  const [searchForm]= Form.useForm();
+  const queryList=(params)=>{
+    const newParams={...{page:0,course:-1},...params};
     if(addVisible)setSingleAddVisible(false)// 关闭弹窗
     dispatch({
       type: 'word/fetch',
-      payload:params,
+      payload:newParams,
     })
   }
 
@@ -42,13 +44,18 @@ const Pptx = ({dispatch,word,listing}) => {
   },[JSON.stringify(list[0])])
 
   const changeTab=(e)=>{
-    console.log(e,'==tab 41'); 
+    // 按课排序
+    if(e==2){
+      searchForm.resetFields();
+      queryList()
+    }
     setTab(e)   
   }
-
+  const onSearch=(values)=>{
+    queryList(values)
+    
+  }
   const onFinish=(values)=>{
-    //todo
-    console.log(values,'=values')
     dispatch({
       type: 'word/addSingle',
       payload:values,
@@ -95,10 +102,6 @@ const Pptx = ({dispatch,word,listing}) => {
     const name  = file.name.substring(0, index);
     let regExp = /^[0-9]+$/g;
     let match = regExp.exec(name)
-
-
-    console.log(isFormat,isLt200M,'=49')
-  
     return new Promise((resolve,reject) => {      
       if(match === null) {
         message.error('ppt名称仅支持数字');
@@ -117,8 +120,6 @@ const Pptx = ({dispatch,word,listing}) => {
   }
 
   const customRequest =async (detail) => {
-    console.log(detail,'-detail in custom')
-  
     const file=detail.file;
     const pptJson = await pptParse(file)
     // todo 此段要精简
@@ -162,7 +163,8 @@ const Pptx = ({dispatch,word,listing}) => {
   }
   const gotoCourse=(courseKey)=>{
     setTab("1");
-    // todo search
+    searchForm.setFieldsValue({course:courseKey});
+    onSearch({course:courseKey})
   }
 
   const newColumns=columns.concat([
@@ -203,7 +205,7 @@ const Pptx = ({dispatch,word,listing}) => {
     },
   ])
 
-  const operations=(<div>
+  const operations=(<div className={styles.operations}>
     <Button onClick={()=>queryList()}>手动刷新页面</Button>
     <Upload 
   action={'/api/fakeUploadUrl/'} beforeUpload={beforeOCR}
@@ -214,21 +216,46 @@ const Pptx = ({dispatch,word,listing}) => {
   // progress={progress}
   multiple={true}
 ><Button style={{marginLeft:10,marginRight:10}} key="upload_excel" type="primary">导入pptx</Button></Upload>
-<Button onClick={()=>setSingleAddVisible(true)}>单个添加</Button>
+<Button onClick={()=>setSingleAddVisible(true) }>单个添加</Button>
 </div>)
   return (
     <div>
       <h3>认字的列表页</h3>
       <p>pptx上传须知：上传文件格式不是ppt。文件名字即为课程编号。例如:5.pptx</p>
-      
         {/* 选项卡部分   */}
-
-          <Tabs onChange={changeTab} activeKey={tab} type="card" tabBarExtraContent={operations}>            
+          {operations}
+          <Tabs onChange={changeTab} activeKey={tab} type="card" >  
+                  {/* tabBarExtraContent={operations}   */}
             <TabPane tab="按字排序" key="1">
-            <Table dataSource={wordList} columns={newColumns} />
+              <Card title={'查询区域'} style={{marginBottom:16}}
+            >
+            <Form
+                  name="search" form={searchForm} layout={document.querySelector('body').offsetWidth>=868?'inline':'horizontal'}
+                  formItemLayout ={{
+                  labelCol: { span: 4 },
+                  wrapperCol: { span: 14 },
+                }}
+                  onFinish={onSearch}
+                  onFinishFailed={()=>message.error('查询失败')}
+                  >
+                  <Form.Item
+                    label="课程号"
+                    name="course"
+                    rules={[]}
+                  >
+                    <InputNumber/>
+                  </Form.Item>
+                  <Form.Item>
+                    <Button type="primary" htmlType="submit">
+                      查询
+                    </Button>
+                  </Form.Item>
+            </Form>
+            
+              </Card>
+            <Table dataSource={wordList} columns={newColumns} scroll={{y:'max-content'}}/>
             </TabPane>
             <TabPane tab="按课件排序" key="2">
-              {console.log(courseObj,'=courseOBj')}
               <Row gutter={24}>
               {Object.keys(courseObj).map(courseKey=>
                 
@@ -245,7 +272,7 @@ const Pptx = ({dispatch,word,listing}) => {
         <Form
       name="add" form={form} {...layout}
       onFinish={onFinish}
-      onFinishFailed={()=>setSingleAddVisible(false)}//{onFinishFailed}
+      onFinishFailed={()=>setSingleAddVisible(false)}
     >
       <Modal title="编辑/添加单个汉字" visible={addVisible} onOk={onFinish} onCancel={()=>setSingleAddVisible(false)}
       footer={[
