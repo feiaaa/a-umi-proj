@@ -60,7 +60,9 @@ const Pptx = ({dispatch,word,listing}) => {
       type: 'word/addSingle',
       payload:values,
       callback:(res)=>{
-        queryList()
+        if(res && res.code==1000){queryList()}
+        else if(res && res.code<0){message.error(res.msg)}
+        else{}
       }
     })
   }
