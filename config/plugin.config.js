@@ -1,4 +1,5 @@
 import path from 'path';
+var GitRevisionPlugin = require('git-revision-webpack-plugin')
 
 function getModulePackageName(module) {
   if (!module.context) return null;
@@ -63,6 +64,7 @@ const webpackPlugin = config => {
         },
       },
     });
+    config.plugin('git-revision-webpack-plugin').use(GitRevisionPlugin)
 };
 
 export default webpackPlugin;
