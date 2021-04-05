@@ -66,6 +66,7 @@ You can view full document on our [official website](https://pro.ant.design). An
 
 [pptx转json:pptx-parser](https://www.npmjs.com/package/pptx-parser)
 [拼音的排序,检索,注音](https://github.com/hotoo/pinyin)
+[生成pptx并下载:PptxGenJS](https://gitbrent.github.io/PptxGenJS/)
 
 [umijs插件-webpackChain](https://github.com/Yatoo2018/webpack-chain/tree/zh-cmn-Hans)
 [版本控制:https://www.npmjs.com/package/git-revision-webpack-plugin](https://www.npmjs.com/package/git-revision-webpack-plugin)

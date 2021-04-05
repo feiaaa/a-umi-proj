@@ -6,8 +6,9 @@ import { connect, Dispatch } from 'umi';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import styles from './style.less'
 import {columns} from '@/services/yby'
-import _, { values } from 'lodash';
-import pptParse from 'pptx-parser'
+import _, { upperCase, values } from 'lodash';
+import pptParse from 'pptx-parser';
+import pptxgen from "pptxgenjs";
 var pinyin = require("pinyin");
 
 
@@ -205,7 +206,48 @@ const Pptx = ({dispatch,word,listing}) => {
         )
       },
     },
-  ])
+  ]);
+
+  const RGBToHex=(rgba,strHexFlag=false)=>{
+    let str = rgba.slice(5,rgba.length - 1),
+		arry = str.split(','),
+		opa = Number(arry[3].trim())*100,
+		strHex = "#",
+		r = Number(arry[0].trim()),
+		g = Number(arry[1].trim()),
+		b = Number(arry[2].trim());
+	
+	  strHex += ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+    return {color:strHex,opacity:opa};
+  }
+
+  const downloadPPT=(courseKey,random=false)=>{
+    //
+    // console.log(courseKey,'=searchForm coursekey',wordList)
+  
+    // 生成pptx
+    let pres = new pptxgen();
+    const newWordList=random?_.shuffle(_.cloneDeep(wordList)):_.cloneDeep(wordList);
+    newWordList.forEach(el=>{
+      const slide = pres.addSlide();
+      const bgcolor=`rgba(${Math.random()*254},${Math.random()*254},${Math.random()*254},${Math.random()})`;
+      const color=RGBToHex(bgcolor);
+      slide.addText(
+          `${el.word}`,
+          {
+              color: '363636',
+              x:1.5,y:3,
+              fill: { color:'F1F1F1' },
+              align: pres.AlignH.center,
+              fontSize:300,
+              autoFit:true,
+          }
+      )
+      slide.background={fill:color.color.slice(1,7),opacity:Math.random()};
+      
+    })// foreach end
+    pres.writeFile('new');
+  }
 
   const operations=(<div className={styles.operations}>
     <Button onClick={()=>queryList()}>手动刷新页面</Button>
@@ -252,6 +294,16 @@ const Pptx = ({dispatch,word,listing}) => {
                       查询
                     </Button>
                   </Form.Item>
+                  <Form.Item>
+                    <Button type="primary" onClick={()=>downloadPPT(searchForm.getFieldValue('course'))}>
+                      下载pptx
+                    </Button>
+                  </Form.Item>
+                  <Form.Item>
+                    <Button type="primary" onClick={()=>downloadPPT(searchForm.getFieldValue('course'),true)}>
+                      下载乱序过的pptx
+                    </Button>
+                  </Form.Item>
             </Form>
             
               </Card>
@@ -261,7 +313,9 @@ const Pptx = ({dispatch,word,listing}) => {
               <Row gutter={24}>
               {Object.keys(courseObj).map(courseKey=>
                 
-                <Col {...gridLayout}><Card title={`第${courseKey}课`} extra={(<a onClick={()=>gotoCourse(courseKey)}>查看</a>)}>
+                <Col {...gridLayout}><Card key={courseKey} title={`第${courseKey}课`} extra={(<a onClick={()=>gotoCourse(courseKey)}>查看</a>)}
+                // actions={[<a key="option1" onClick={()=>{downloadPPT(courseKey)}}>下载顺序排列的pptx</a>,<a key="option2" onClick={()=>{downloadPPT(courseKey,true)}}>下载乱序排列的pptx</a>]}
+                >
                 {`共${courseObj[courseKey].length}字`}
                 </Card></Col>
                 
