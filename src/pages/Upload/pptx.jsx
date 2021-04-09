@@ -26,6 +26,7 @@ const Pptx = ({dispatch,word,listing}) => {
 
   const [form] = Form.useForm();
   const [searchForm]= Form.useForm();
+  const [operateForm] = Form.useForm();
   const queryList=(params)=>{
     const newParams={...{page:0,course:-1},...params};
     if(addVisible)setSingleAddVisible(false)// 关闭弹窗
@@ -53,8 +54,11 @@ const Pptx = ({dispatch,word,listing}) => {
     setTab(e)   
   }
   const onSearch=(values)=>{
-    queryList(values)
-    
+    queryList(values)    
+  }
+  const onDownload=(values)=>{
+    console.log(values,'=valuse')
+    // todo 等接口
   }
   const onFinish=(values)=>{
     dispatch({
@@ -230,8 +234,11 @@ const Pptx = ({dispatch,word,listing}) => {
     const newWordList=random?_.shuffle(_.cloneDeep(wordList)):_.cloneDeep(wordList);
     newWordList.forEach(el=>{
       const slide = pres.addSlide();
+      //旧版颜色处理 start
       const bgcolor=`rgba(${Math.random()*254},${Math.random()*254},${Math.random()*254},${Math.random()})`;
-      const color=RGBToHex(bgcolor);
+      const colorObj=RGBToHex(bgcolor);
+      const color=colorObj.color.slice(1,7)
+      //旧版颜色处理 end
       slide.addText(
           `${el.word}`,
           {
@@ -243,7 +250,8 @@ const Pptx = ({dispatch,word,listing}) => {
               autoFit:true,
           }
       )
-      slide.background={fill:color.color.slice(1,7),opacity:Math.random()};
+      // 新版底色为浅蓝色
+      slide.background={fill:'#AFEEEE'};
       
     })// foreach end
     pres.writeFile('new');
@@ -302,6 +310,32 @@ const Pptx = ({dispatch,word,listing}) => {
                   <Form.Item>
                     <Button type="primary" onClick={()=>downloadPPT(searchForm.getFieldValue('course'),true)}>
                       下载乱序过的pptx
+                    </Button>
+                  </Form.Item>
+            </Form>
+            
+              </Card>
+              <Card title={'操作区域'} style={{marginBottom:16}}
+            >
+            <Form
+                  name="operate" form={operateForm} layout={document.querySelector('body').offsetWidth>=868?'inline':'horizontal'}
+                  formItemLayout ={{
+                  labelCol: { span: 4 },
+                  wrapperCol: { span: 14 },
+                }}
+                  onFinish={onDownload}
+                  onFinishFailed={()=>message.error('查询失败')}
+                  >
+                  <Form.Item
+                    label="随机获取个数"
+                    name="number"
+                    rules={[]}
+                  >
+                    <InputNumber/>
+                  </Form.Item>
+                  <Form.Item>
+                    <Button type="primary" htmlType="submit">
+                      下载pptx
                     </Button>
                   </Form.Item>
             </Form>
