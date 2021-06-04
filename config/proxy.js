@@ -21,6 +21,13 @@ export default {
         '^/yby': '/yby',
       },
     },
+    '/home': {
+      target: 'http://localhost:3006/',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/home': '/',
+      },
+    },
   },
   test: {
     '/api/': {

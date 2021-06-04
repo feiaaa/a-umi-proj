@@ -99,6 +99,13 @@ export default defineConfig({
                     component: './Chart',
                   },
                   {
+                    name: 'sql.sql',
+                    icon: 'database',
+                    path: '/self/query',
+                    component: './Query',
+                  },
+                  
+                  {
                     name: '上传',
                     icon: 'upload',
                     path: '/self/upload',
