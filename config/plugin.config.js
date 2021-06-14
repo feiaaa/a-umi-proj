@@ -1,5 +1,6 @@
 import path from 'path';
 var GitRevisionPlugin = require('git-revision-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 function getModulePackageName(module) {
   if (!module.context) return null;
@@ -11,6 +12,7 @@ function getModulePackageName(module) {
 
   const moduleRelativePath = module.context.substring(nodeModulesPath.length);
   const [moduleDirName] = moduleRelativePath.split(path.sep);
+
   let packageName = moduleDirName; // handle tree shaking
 
   if (packageName && packageName.match('^_')) {
@@ -63,8 +65,15 @@ const webpackPlugin = config => {
           },
         },
       },
-    });
-    config.plugin('git-revision-webpack-plugin').use(GitRevisionPlugin)
+    })
+    // .minimizer('js').tap(args=>[...args,new UglifyJsPlugin()])//.use()
+  ;
+  config.merge({
+    // optimization:{minimize: true,minimizer:'terserjs'}
+  })
+  // config.plugin('uglifyjs-webpack-plugin').use(UglifyJsPlugin,);
+
+  config.plugin('git-revision-webpack-plugin').use(GitRevisionPlugin)
 };
 
 export default webpackPlugin;
