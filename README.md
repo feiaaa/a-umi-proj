@@ -70,6 +70,8 @@ You can view full document on our [official website](https://pro.ant.design). An
 
 [umijs插件-webpackChain](https://github.com/Yatoo2018/webpack-chain/tree/zh-cmn-Hans)
 [版本控制:https://www.npmjs.com/package/git-revision-webpack-plugin](https://www.npmjs.com/package/git-revision-webpack-plugin)
+
+[echarts升级5.0之后 map的使用](https://blog.csdn.net/weixin_43997143/article/details/113391628)
 ## Notice
 remove this for commit
 ```package.json
