@@ -83,5 +83,7 @@ remove this for commit
 ```
 
 ### how to use plugins
-see plugin.comfig.js
+see plugin.config.js
 
+### version-control
+see config.js(headScript) and plugin.config.js

@@ -1,6 +1,6 @@
 import path from 'path';
 var GitRevisionPlugin = require('git-revision-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+// const UglifyJsPlugin =  require('uglifyjs-webpack-plugin');
 
 function getModulePackageName(module) {
   if (!module.context) return null;
@@ -68,9 +68,9 @@ const webpackPlugin = config => {
     })
     // .minimizer('js').tap(args=>[...args,new UglifyJsPlugin()])//.use()
   ;
-  config.merge({
+  // config.merge({
     // optimization:{minimize: true,minimizer:'terserjs'}
-  })
+  // })
   // config.plugin('uglifyjs-webpack-plugin').use(UglifyJsPlugin,);
 
   config.plugin('git-revision-webpack-plugin').use(GitRevisionPlugin)

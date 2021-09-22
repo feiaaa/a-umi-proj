@@ -6,6 +6,10 @@ import webpackPlugin from './plugin.config';
 const { winPath } = utils; // preview.pro.ant.design only do not use in your production ;
 // preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
 
+// show version control
+const GitRevisionPlugin = require('git-revision-webpack-plugin');
+const gitRevision = new GitRevisionPlugin();
+
 const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION, REACT_APP_ENV, GA_KEY } = process.env;
 export default defineConfig({
   // hash: true,
@@ -157,7 +161,7 @@ export default defineConfig({
   define: {
     REACT_APP_ENV: REACT_APP_ENV || false,
     ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION:
-      ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION || '', // preview.pro.ant.design only do not use in your production ; preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
+    ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION || '', // preview.pro.ant.design only do not use in your production ; preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
   },
   ignoreMomentLocale: true,
   lessLoader: {
@@ -192,8 +196,10 @@ export default defineConfig({
   manifest: {
     basePath: '/',
   },
-  minimizer:'terserjs',
+  // minimizer:'terserjs',
 
   proxy: proxy[REACT_APP_ENV || 'dev'],
+
+  headScripts:[`commitHash:${(gitRevision.commithash()).slice(0,8)}`,`${new Date()}`],
   chainWebpack: webpackPlugin,
 });
