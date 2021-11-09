@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<!-- <div><img src="monet.tif" width="100" height="100"></div>
+		
+		<div id="drop">
+		    <p>Drop TIFF file here!</p>
+		</div>
+		<div class="img-box">
+		    <img id="img" src="" width="100" height="100" />
+		</div> -->
+	</body>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="" type="text/javascript" charset="utf-8"></script>
+	<script src="./tif.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var url="http://seikichi.github.io/tiff.js/images/minisblack-1c-16b.tiff";
+		
+		// https://github.com/seikichi/tiff.js
+		// https://blog.csdn.net/z291493823/article/details/109358709
+		// resolve Source is too large：https://github.com/emscripten-core/emscripten/issues/3603
+		var loadImage = function (filename) {
+		    var xhr = new XMLHttpRequest();
+		    xhr.open('GET', filename);
+		    xhr.responseType = 'arraybuffer';
+		    xhr.onload = function (e) {
+		      var buffer = xhr.response;
+			  console.log(xhr.response,'=buffer')
+		      var tiff = new Tiff({buffer: buffer});
+		      var canvas = tiff.toCanvas();
+		      var width = tiff.width();
+		      var height = tiff.height();
+			  console.log(width,"=35")
+		      if (canvas) {
+		        var $elem = $('<div><div><a href="' + filename + '">' +
+		                      filename +
+		                      ' (width: ' + width + ', height:' + height + ')' +
+		                      '</a></div></div>');
+		        $elem.append(canvas);
+		        $('body').append($elem);
+		      }
+		    };
+		    xhr.send();
+		  };
+		  // loadImage('minisblack-1c-16b.tiff');
+		  loadImage(url);
+		  // loadImage('invoice.tif');
+		  // loadImage('multipage.tif');
+		</script>
+</html>

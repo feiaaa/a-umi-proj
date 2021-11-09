@@ -72,6 +72,8 @@ You can view full document on our [official website](https://pro.ant.design). An
 [版本控制:https://www.npmjs.com/package/git-revision-webpack-plugin](https://www.npmjs.com/package/git-revision-webpack-plugin)
 
 [echarts升级5.0之后 map的使用](https://blog.csdn.net/weixin_43997143/article/details/113391628)
+
+[tif](https://www.npmjs.com/package/file-type)
 ## Notice
 remove this for commit
 ```package.json

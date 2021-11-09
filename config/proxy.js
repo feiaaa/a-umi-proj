@@ -28,6 +28,13 @@ export default {
         '^/home': '/',
       },
     },
+    '/tiff.js': {
+      target: 'http://seikichi.github.io/',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/tiff.js': '/tiff.js',
+      },
+    },
   },
   test: {
     '/api/': {

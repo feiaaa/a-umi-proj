@@ -41,7 +41,7 @@ const errorHandler = error => {
       message: '网络异常',
     });
   }
-
+  
   return response;
 };
 /**
@@ -52,5 +52,19 @@ const request = extend({
   errorHandler,
   // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
+});
+
+
+// 拦截，处理arrayBuffer
+// response interceptor, chagne response
+request.interceptors.response.use((response, options) => {
+  const {responseType}=options;
+  console.log(responseType,"=62",options)
+  // if(responseType=="arrayBuffer"){
+  //   return response.arrayBuffer()
+  // } 
+  console.log(response.json(),"=66")
+  console.log(response,"=65 in request")
+  return response;
 });
 export default request;

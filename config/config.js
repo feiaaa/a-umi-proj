@@ -22,9 +22,10 @@ export default defineConfig({
   dva: {
     hmr: true,
   },
+  // locale:false,
   locale: {
-    // default zh-CN
-    default: 'zh-CN',
+    // enable: false,
+    // default: false,//'zh-CN',
     // default true, when it is true, will use `navigator.language` overwrite default
     antd: true,
     baseNavigator: true,
@@ -90,30 +91,36 @@ export default defineConfig({
               // hideInMenu: true,
               routes: [
                 
-                  {
-                    name: 'list.table-list',
-                    icon: 'table',
-                    path: '/self/list',
-                    component: './ListTableList',
-                  },
-                  {
-                    name: 'echart.chart',
-                    icon: 'barChart',
-                    path: '/self/echart',
-                    component: './Chart',
-                  },
-                  {
-                    name: 'sql.sql',
-                    icon: 'database',
-                    path: '/self/query',
-                    component: './Query',
-                  },
+                  // {
+                  //   name: 'list.table-list',
+                  //   icon: 'table',
+                  //   path: '/self/list',
+                  //   component: './ListTableList',
+                  // },
+                  // {
+                  //   name: 'echart.chart',
+                  //   icon: 'barChart',
+                  //   path: '/self/echart',
+                  //   component: './Chart',
+                  // },
+                  // {
+                  //   name: 'sql.sql',
+                  //   icon: 'database',
+                  //   path: '/self/query',
+                  //   component: './Query',
+                  // },
                   
                   {
                     name: '上传',
                     icon: 'upload',
                     path: '/self/upload',
                     component: './Upload',
+                  },
+                  {
+                    name: 'tif',
+                    icon: 'upload',
+                    path: '/self/tif',
+                    component: './Tif',
                   },
                   {
                     name: 'useContext/useReducer',
