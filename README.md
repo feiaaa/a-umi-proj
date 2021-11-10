@@ -73,7 +73,7 @@ You can view full document on our [official website](https://pro.ant.design). An
 
 [echarts升级5.0之后 map的使用](https://blog.csdn.net/weixin_43997143/article/details/113391628)
 
-[tif](https://www.npmjs.com/package/file-type)
+[tif](https://www.npmjs.com/package/file-type) 需要在webpack加loader,识别tiff
 
 [how to remove locale warning](https://github.com/ant-design/ant-design-pro/issues/5191)
 ## Notice

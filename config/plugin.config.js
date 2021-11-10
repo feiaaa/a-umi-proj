@@ -65,9 +65,16 @@ const webpackPlugin = config => {
           },
         },
       },
-    })
+    });
+    // tofix :You may need an appropriate loader to handle this file type
+    config.module
+    .rule('url-loader')
+    .test(/\.(tiff)(\?.*)?$/)
+    .use('url-loader')
+    .loader('url-loader');
+    
     // .minimizer('js').tap(args=>[...args,new UglifyJsPlugin()])//.use()
-  ;
+  
   // config.merge({
     // optimization:{minimize: true,minimizer:'terserjs'}
   // })
