@@ -69,7 +69,7 @@ const webpackPlugin = config => {
     // tofix :You may need an appropriate loader to handle this file type
     config.module
     .rule('url-loader')
-    .test(/\.(tiff)(\?.*)?$/)
+    .test(/\.(tif|tiff)(\?.*)?$/)
     .use('url-loader')
     .loader('url-loader');
     
