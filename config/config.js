@@ -201,6 +201,6 @@ export default defineConfig({
 
   proxy: proxy[REACT_APP_ENV || 'dev'],
 
-  headScripts:[`console.log("commitHash:${(gitRevision.commithash()).slice(0,8)}")`,`console.log("${new Date()}")`],
+  headScripts:[`var commitHash="commitHash:${(gitRevision.commithash()).slice(0,8)}"`,`var packHashDate="${new Date()}"`],
   chainWebpack: webpackPlugin,
 });
