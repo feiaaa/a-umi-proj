@@ -21,6 +21,7 @@ const ShowTif = () => {
     xhr.responseType = "arraybuffer";
     xhr.onload = function (e){
       var arrayBuffer = this.response;
+      let ifds = UTIF.decode(arrayBuffer); // count multi-levels 
       var dataUrl = UTIF.bufferToURI(arrayBuffer); //replaceIMG
       document.getElementById("img").src=dataUrl;
     }
