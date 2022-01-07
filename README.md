@@ -2,6 +2,7 @@
 
 This project is initialized with [Ant Design Pro](https://pro.ant.design). Follow is the quick guide for how to use.
 
+### 此分支是master的jsx版本，之后master分支将会进化为ts，
 ## Environment Prepare
 
 Install `node_modules`:
