@@ -117,6 +117,12 @@ export default defineConfig({
                     component: './Tif',
                   },
                   {
+                    name: 'trigger',
+                    icon: 'upload',
+                    path: '/self/trigger',
+                    component: './Trigger',
+                  },
+                  {
                     name: 'useContext/useReducer',
                     icon: 'list',
                     path: '/self/hookUseContext',

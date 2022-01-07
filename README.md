@@ -76,6 +76,7 @@ You can view full document on our [official website](https://pro.ant.design). An
 [tif](https://www.npmjs.com/package/file-type) 需要在webpack加loader,识别tiff
 [utif](https://github.com/photopea/UTIF.js)
 [how to remove locale warning](https://github.com/ant-design/ant-design-pro/issues/5191)
+[rc-triger:手写弹窗](http://react-component.github.io/trigger/)
 ## Notice
 remove this for commit
 ```package.json
@@ -91,3 +92,6 @@ see plugin.config.js
 
 ### version-control
 see config.js(headScript) and plugin.config.js
+
+### log 
+- 2022-01-07 该项目已经升级到react 17,可以使用ts
