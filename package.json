@@ -44,9 +44,9 @@
   ],
   "dependencies": {
     "@ant-design/icons": "^4.0.0",
-    "@ant-design/pro-layout": "^5.0.8",
+    "@ant-design/pro-layout": "6.13.0",
     "@ant-design/pro-table": "^2.1.11",
-    "antd": "^4.0.0",
+    "antd": "^4.11.2",
     "classnames": "^2.2.6",
     "echarts": "^4.7.0",
     "echarts-for-react": "^3.0.1",
@@ -102,7 +102,9 @@
     "mockjs": "^1.0.1-beta3",
     "prettier": "^2.0.1",
     "pro-download": "1.0.1",
-    "stylelint": "^13.0.0"
+    "stylelint": "^13.0.0",
+    "typescript": "3.8.3",
+    "rc-trigger": "^5.2.10"
   },
   "optionalDependencies": {
     "puppeteer": "^2.0.0"
