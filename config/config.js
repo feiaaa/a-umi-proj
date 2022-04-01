@@ -22,7 +22,7 @@ export default defineConfig({
   dva: {
     hmr: true,
   },
-  
+
   locale: {},
   dynamicImport: {
     loading: '@/components/PageLoading/index',
@@ -84,7 +84,7 @@ export default defineConfig({
               icon: 'info-circle',
               // hideInMenu: true,
               routes: [
-                
+
                   // {
                   //   name: 'list.table-list',
                   //   icon: 'table',
@@ -103,7 +103,7 @@ export default defineConfig({
                   //   path: '/self/query',
                   //   component: './Query',
                   // },
-                  
+
                   {
                     name: '上传',
                     icon: 'upload',
@@ -123,11 +123,17 @@ export default defineConfig({
                     component: './Trigger',
                   },
                   {
-                    name: 'useContext/useReducer',
-                    icon: 'list',
-                    path: '/self/hookUseContext',
-                    component: './hook',
+                    name: 'luckySheet',
+                    icon: 'upload',
+                    path: '/self/luckySheet',
+                    component: './LuckySheet',
                   },
+                  // {
+                  //   name: 'useContext/useReducer',
+                  //   icon: 'list',
+                  //   path: '/self/hookUseContext',
+                  //   component: './hook',
+                  // },
                 ]
             },
             {
@@ -136,7 +142,7 @@ export default defineConfig({
               icon: 'font-colors',
               // hideInMenu: true,
               routes: [
-                
+
                   {
                     name: '上传pptx',
                     icon: 'upload',
@@ -145,7 +151,7 @@ export default defineConfig({
                   },
                 ]
             },
-            
+
             {
               component: './404',
             },
